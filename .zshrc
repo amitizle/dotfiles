@@ -4,10 +4,12 @@ DISABLE_AUTO_TITLE=true
 autoload -Uz compinit promptinit colors select-word-style
 compinit -C
 zmodload -i zsh/complist
+zmodload -i zsh/mapfile
 promptinit
 colors
 # Alt + backspace for deleting up to a slash (for example)
 select-word-style bash
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 ###########
 # Aliases #
@@ -29,11 +31,28 @@ alias la='ls -A'
 alias grep='grep --color'
 alias info='info --vi-keys'
 alias sl='ls'
+alias jcurl='curl -H "Accept: application/json" -H "Content-Type: application/json"'
+alias travis='/usr/local/bin/travis'
 alias vim='nvim'
 
-##########
-# Docker #
-##########
+####################
+# Extra completion #
+####################
+for f in $(find $HOME/.completion/ -type f); do
+  source $f
+done
+
+####################
+# Google Cloud SDK #
+####################
+for gcloud_comp in $(ls $HOME/.apps/repos/google-cloud-sdk/*.zsh.inc)
+do
+  source $gcloud_comp
+done
+
+##############
+# Docker/K8s #
+##############
 alias docker-cleanup-all='docker stop $(docker ps -q); docker rm -f $(docker ps -qa); docker rmi -f $(docker images -qa)'
 alias docker-cleanup-containers='docker stop $(docker ps -q); docker rm -f $(docker ps -qa)'
 alias docker-ps='docker ps -a --format "{{.Names}} ({{.Image}}): {{.Status}} (Running for {{.RunningFor}}, Created At: {{.CreatedAt}})"'
@@ -41,10 +60,17 @@ alias docker-run-command='docker inspect  --format "{{.Name}} {{.Config.Cmd}}" $
 alias docker-stop-all='docker stop $(docker ps -q)'
 alias docker-ips='docker inspect -f "{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $(docker ps -aq)'
 
-########
-# Ruby #
-########
-alias be='bundle exec'
+############
+# Minikube #
+############
+
+function reset_minikube(){
+  minikube config set cpus 4
+  minikube config set memory 4096
+  minikube config view
+  minikube delete || true
+  minikube start --vm-driver virtualbox
+}
 
 ###########
 # Vagrant #
@@ -109,6 +135,19 @@ function random_string(){
 }
 
 #######
+# SSL #
+#######
+function verify_ssl(){
+  local res=$(curl --insecure -v "$1" 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }')
+  ([ -z "${res}" ] && echo "Usage: verify_ssl https://example.com (scheme must be provided)") || echo $res
+}
+
+# Note that "redundant" -servername parameter is necessary to make openssl do a request with SNI support
+function verify_ssl_openssl(){
+  echo | openssl s_client -showcerts  -servername "${2}" -connect "${1}" 2>/dev/null | openssl x509 -inform pem -noout -text
+}
+
+#######
 # Git #
 #######
 functions private_git(){
@@ -123,6 +162,20 @@ function pull_all_git(){
     git pull
     cd ..
   done
+}
+
+function git_pr_merged(){
+  local _curr_branch=$(git rev-parse --abbrev-ref HEAD)
+  git checkout master
+  git pull
+  echo "Deleting branch $_curr_branch"
+  git branch -D $_curr_branch
+}
+
+function hub_compare_last_two(){
+  local HEAD_REV=$(git rev-parse --verify HEAD)
+  local PREV_REV=$(git rev-parse --verify HEAD^)
+  hub compare ${PREV_REV}..${HEAD_REV}
 }
 
 function gi() {
@@ -148,6 +201,18 @@ function wttr()
   curl -H "Accept-Language: en" wttr.in/"${1:-Dublin}"
 }
 
+function is_yaml(){
+  ruby -r'yaml' -r'json' -e "begin JSON.pretty_generate(YAML.load_file('$1')); puts 'YES'; rescue Exception => e; puts 'NO'; end"
+}
+
+function yaml_to_json(){
+  ruby -r'yaml' -r'json' -e "puts JSON.pretty_generate(YAML.load_file('$1'))"
+}
+
+function is_json(){
+  ruby -r'json' -e "begin JSON.parse(File.read('$1')); puts 'YES'; rescue Exception => e; puts 'NO'; end"
+}
+
 ##############
 # ZSH Config #
 ##############
@@ -157,6 +222,10 @@ export GIT_PROMPT_EXECUTABLE="haskell"
 source $HOME/.env_secrets
 source $HOME/.zsh_addons/zsh-git-prompt/zshrc.sh
 source $HOME/.zsh_addons/zsh_prompt
+for s in $(find $HOME/.zsh_sources -type f)
+do
+  source $s
+done
 
 # ZSH key binding
 bindkey '^P' history-search-backward
@@ -196,6 +265,9 @@ alias erl_observer='erl -sname observer -run observer -detached'
 # Ruby #
 ########
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+alias be='bundle exec'
+alias bek='bundle exec kitchen'
+alias ber='bundle exec rake'
 
 #######
 # Lua #
