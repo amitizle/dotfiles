@@ -154,6 +154,7 @@ function wttr()
 
 # Addons
 export GIT_PROMPT_EXECUTABLE="haskell"
+source $HOME/.env_secrets
 source $HOME/.zsh_addons/zsh-git-prompt/zshrc.sh
 source $HOME/.zsh_addons/zsh_prompt
 

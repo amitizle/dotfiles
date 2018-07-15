@@ -60,5 +60,9 @@
 	renames = copies
 [difftool]
 	prompt = false
+[mergetool "vimdiff"]
+  path = /usr/local/bin/nvim
+  cmd = nvim -d $LOCAL $REMOTE
 [merge]
 	tool = vimdiff
+  conflictstyle = diff3
