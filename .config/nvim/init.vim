@@ -4,25 +4,37 @@ Plug 'tomtom/tcomment_vim'
 Plug 'jacoborus/tender.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'itchyny/vim-haskell-indent', { 'for' : 'haskell' }
-Plug 'elixir-lang/vim-elixir', { 'for' : 'elixir'}
-Plug 'slashmili/alchemist.vim', { 'for' : 'elixir'}
 Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for' : 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons', { 'for' : 'erlang' }
 Plug 'vim-erlang/vim-erlang-runtime', { 'for' : 'erlang' }
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'lfe/vim-lfe'
-Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby'}
 Plug 'vitalk/vim-simple-todo'
 Plug 'tpope/vim-surround'
 Plug 'tmhedberg/matchit'
-Plug 'fatih/vim-go', { 'for' : 'go' }
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'rust-lang/rust.vim', { 'for' : 'rust' }
 Plug 'hashivim/vim-terraform', { 'for' : 'terraform' }
-Plug 'roxma/nvim-completion-manager' " completion engine
 Plug 'vim-airline/vim-airline' " airline
 Plug 'vim-airline/vim-airline-themes'
+" Autocomplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" Go
+Plug 'zchee/deoplete-go', { 'do': 'make', 'for' : 'go'}
+Plug 'fatih/vim-go', { 'for' : 'go' }
+Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+
+" Ruby
+Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'haml', 'eruby'] }
+Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby' }
+Plug 'tpope/vim-rake', { 'for': 'ruby' }
+Plug 'tpope/vim-rbenv', { 'for': 'ruby' }
+Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+
+" Elixir
+Plug 'elixir-lang/vim-elixir', { 'for' : 'elixir'}
+Plug 'slashmili/alchemist.vim', { 'for' : 'elixir'}
 
 autocmd! User vim-elixir echom 'vim-elxir loaded!'
 autocmd! User vim-go echom 'vim-go loaded!'
@@ -120,3 +132,8 @@ map <C-n> :NERDTreeToggle<CR>
 let g:gitgutter_signs = 1
 let g:gitgutter_highlight_lines = 0
 let g:gitgutter_enabled = 1
+
+" autocomplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const'] " Go
+let g:deoplete#sources#go#pointer = 1
