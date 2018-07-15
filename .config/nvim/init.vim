@@ -21,7 +21,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Go
-Plug 'zchee/deoplete-go', { 'do': 'make', 'for' : 'go'}
+Plug 'zchee/deoplete-go', { 'do': 'make', 'for' : 'go'} " requires go get -u github.com/nsf/gocode
 Plug 'fatih/vim-go', { 'for' : 'go' }
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
