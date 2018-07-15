@@ -10,6 +10,7 @@ Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for' : 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons', { 'for' : 'erlang' }
 Plug 'vim-erlang/vim-erlang-runtime', { 'for' : 'erlang' }
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'lfe/vim-lfe'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby'}
 Plug 'vitalk/vim-simple-todo'
@@ -114,3 +115,8 @@ let g:terraform_fmt_on_save = 1
 
 " maps
 map <C-n> :NERDTreeToggle<CR>
+
+" git gutter
+let g:gitgutter_signs = 1
+let g:gitgutter_highlight_lines = 0
+let g:gitgutter_enabled = 1
