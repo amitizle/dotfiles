@@ -1,3 +1,4 @@
 .config/nvim/autoload
 .config/nvim/ftplugin
 .config/nvim/plugged
+.config/nvim/.netrwhist

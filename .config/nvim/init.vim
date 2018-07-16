@@ -17,6 +17,10 @@ Plug 'rust-lang/rust.vim', { 'for' : 'rust' }
 Plug 'hashivim/vim-terraform', { 'for' : 'terraform' }
 Plug 'vim-airline/vim-airline' " airline
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 " Autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -24,6 +28,10 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go', { 'do': 'make', 'for' : 'go'} " requires go get -u github.com/nsf/gocode
 Plug 'fatih/vim-go', { 'for' : 'go' }
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+
+" Scala
+Plug 'ensime/ensime-vim', { 'do' : ':UpdateRemotePlugins', 'for' : 'scala' }
+Plug 'derekwyatt/vim-scala', { 'for' : 'scala'}
 
 " Ruby
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'haml', 'eruby'] }
@@ -137,3 +145,16 @@ let g:gitgutter_enabled = 1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const'] " Go
 let g:deoplete#sources#go#pointer = 1
+
+" fuzzy
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+let g:fzf_command_prefix = 'Fzf'
+if executable('fzf')
+  nnoremap <leader>v :FzfFiles<cr>
+  nnoremap <leader>u :FzfTags<cr>
+  nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
+endif
