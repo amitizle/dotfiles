@@ -24,6 +24,10 @@ Plug 'junegunn/fzf.vim'
 " Autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" Snippets
+Plug 'SirVer/ultisnips' " engine
+Plug 'honza/vim-snippets' " snippets
+
 " Go
 Plug 'zchee/deoplete-go', { 'do': 'make', 'for' : 'go'} " requires go get -u github.com/nsf/gocode
 Plug 'fatih/vim-go', { 'for' : 'go' }
@@ -158,3 +162,6 @@ if executable('fzf')
   nnoremap <leader>u :FzfTags<cr>
   nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
 endif
+
+" snippets
+let g:UltiSnipsExpandTrigger="<tab>"
