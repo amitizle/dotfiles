@@ -42,14 +42,6 @@ for f in $(find $HOME/.completion/ -type f); do
   source $f
 done
 
-####################
-# Google Cloud SDK #
-####################
-for gcloud_comp in $(ls $HOME/.apps/repos/google-cloud-sdk/*.zsh.inc)
-do
-  source $gcloud_comp
-done
-
 ##############
 # Docker/K8s #
 ##############
