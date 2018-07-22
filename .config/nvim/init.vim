@@ -1,56 +1,107 @@
 call plug#begin()
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'tomtom/tcomment_vim'
-Plug 'jacoborus/tender.vim'
-Plug 'lifepillar/vim-solarized8'
-Plug 'itchyny/vim-haskell-indent', { 'for' : 'haskell' }
-Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for' : 'erlang' }
-Plug 'vim-erlang/vim-erlang-skeletons', { 'for' : 'erlang' }
-Plug 'vim-erlang/vim-erlang-runtime', { 'for' : 'erlang' }
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'lfe/vim-lfe'
-Plug 'vitalk/vim-simple-todo'
+
+"""""""""
+" Tools "
+"""""""""
 Plug 'tpope/vim-surround'
 Plug 'tmhedberg/matchit'
-Plug 'rust-lang/rust.vim', { 'for' : 'rust' }
-Plug 'hashivim/vim-terraform', { 'for' : 'terraform' }
-Plug 'vim-airline/vim-airline' " airline
-Plug 'vim-airline/vim-airline-themes'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'tomtom/tcomment_vim'
 
-" Autocomplete
+""""""""""""""
+" todo lists "
+""""""""""""""
+Plug 'vitalk/vim-simple-todo', { 'for': 'todo' }
+
+"""""""""""""""
+" Look & feel "
+"""""""""""""""
+Plug 'vim-airline/vim-airline' " airline
+Plug 'vim-airline/vim-airline-themes'
+Plug 'lifepillar/vim-solarized8'
+
+"""""""""""""
+" Terraform "
+"""""""""""""
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+
+"""""""""""
+" Haskell "
+"""""""""""
+Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell' }
+
+"""""""
+" LFE "
+"""""""
+Plug 'lfe-support/vim-lfe', {'for': 'lfe'}
+
+""""""""""
+" Erlang "
+""""""""""
+Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
+Plug 'vim-erlang/vim-erlang-skeletons', { 'for': 'erlang' }
+Plug 'vim-erlang/vim-erlang-runtime', { 'for': 'erlang' }
+
+""""""""
+" Rust "
+""""""""
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+
+""""""""""""
+" Markdown "
+""""""""""""
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    !cargo build --release
+  endif
+endfunction
+
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown' }
+
+""""""""""""""""
+" Autocomplete "
+""""""""""""""""
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-" Snippets
+""""""""""""
+" Snippets "
+""""""""""""
 Plug 'SirVer/ultisnips' " engine
 Plug 'honza/vim-snippets' " snippets
 
-" Go
-Plug 'zchee/deoplete-go', { 'do': 'make', 'for' : 'go'} " requires go get -u github.com/nsf/gocode
+""""""
+" Go "
+""""""
+Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'} " requires go get -u github.com/nsf/gocode
 Plug 'fatih/vim-go', { 'for' : 'go' }
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
-" Scala
-Plug 'ensime/ensime-vim', { 'do' : ':UpdateRemotePlugins', 'for' : 'scala' }
-Plug 'derekwyatt/vim-scala', { 'for' : 'scala'}
+"""""""""
+" Scala "
+"""""""""
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins', 'for' : 'scala' }
+Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
 
-" Ruby
+""""""""
+" Ruby "
+""""""""
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'haml', 'eruby'] }
 Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'tpope/vim-rbenv', { 'for': 'ruby' }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 
-" Elixir
-Plug 'elixir-lang/vim-elixir', { 'for' : 'elixir'}
-Plug 'slashmili/alchemist.vim', { 'for' : 'elixir'}
+""""""""""
+" Elixir "
+""""""""""
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir'}
 
-autocmd! User vim-elixir echom 'vim-elxir loaded!'
-autocmd! User vim-go echom 'vim-go loaded!'
-autocmd! User rust.vim echom 'Rust plugin loaded!'
 call plug#end()
 
 " Look & feel, truecolor and solarized colorscheme
@@ -126,6 +177,8 @@ au BufRead,BufNewFile *.xrl setfiletype erlang
 au BufRead,BufNewFile *.yrl setfiletype erlang
 au BufRead,BufNewFile *.ex setfiletype elixir
 au BufRead,BufNewFile *.exs setfiletype elixir
+au BufRead,BufNewFile *.lfe setfiletype lfe
+au BufRead,BufNewFile *.todo setfiletype todo
 
 " Go
 let g:go_highlight_types = 1 " This is part of vim-go
