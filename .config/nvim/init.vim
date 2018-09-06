@@ -111,6 +111,8 @@ set termguicolors
 set background=dark
 colorscheme solarized8_dark_flat
 syntax enable
+highlight clear Comment
+highlight Comment guifg=#5E5E5E
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 
 " airline

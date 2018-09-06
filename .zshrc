@@ -270,3 +270,5 @@ eval $(luarocks path --bin)
 # Start tmux #
 ##############
 [[ -z "$TMUX" ]] && tmux
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
