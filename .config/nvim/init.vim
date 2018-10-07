@@ -80,6 +80,7 @@ Plug 'honza/vim-snippets' " snippets
 Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'} " requires go get -u github.com/nsf/gocode
 Plug 'fatih/vim-go', { 'for' : 'go' }
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'sebdah/vim-delve', { 'for' : 'go' } " requires go get -u github.com/derekparker/delve/cmd/dlv
 
 """""""""
 " Scala "
@@ -181,6 +182,8 @@ au BufRead,BufNewFile *.ex setfiletype elixir
 au BufRead,BufNewFile *.exs setfiletype elixir
 au BufRead,BufNewFile *.lfe setfiletype lfe
 au BufRead,BufNewFile *.todo setfiletype todo
+" Run python -m json.tool after saving json files
+autocmd BufWritePost *.json %!python -m json.tool
 
 " Go
 let g:go_highlight_types = 1 " This is part of vim-go
@@ -220,3 +223,7 @@ endif
 
 " snippets
 let g:UltiSnipsExpandTrigger="<tab>"
+
+" Go delve mapping
+map <leader>b :DlvToggleBreakpoint<CR>
+map <leader>n :DlvToggleTracepoint<CR>
