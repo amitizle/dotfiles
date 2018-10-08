@@ -15,6 +15,7 @@ This repo is for my Mac machines only.
 ├── .irbrc # Check out ruby.sh for default gems etc
 ├── .kerlrc # Erlang version manager
 ├── .tmux.conf # tmux is the best innit
+├── misc # some misc configs and stuff
 ├── .zsh_addons # Addons for zsh, git branch for prompt is the only one for now
 │   ├── clone_addons.sh
 │   └── zsh_prompt # PS1 (shell prompt)
