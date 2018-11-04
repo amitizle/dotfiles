@@ -13,6 +13,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tomtom/tcomment_vim'
 
+"""""""""""""""""""""""
+" linters & structure "
+"""""""""""""""""""""""
+Plug 'w0rp/ale'
+
 """"""""""""""
 " todo lists "
 """"""""""""""
@@ -82,12 +87,6 @@ Plug 'fatih/vim-go', { 'for' : 'go' }
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'sebdah/vim-delve', { 'for' : 'go' } " requires go get -u github.com/derekparker/delve/cmd/dlv
 
-"""""""""
-" Scala "
-"""""""""
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins', 'for' : 'scala' }
-Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
-
 """"""""
 " Ruby "
 """"""""
@@ -100,8 +99,8 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 """"""""""
 " Elixir "
 """"""""""
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir'}
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
 call plug#end()
 
@@ -185,11 +184,24 @@ au BufRead,BufNewFile *.todo setfiletype todo
 " Run python -m json.tool after saving json files
 autocmd BufWritePost *.json %!python -m json.tool
 
+" ale linter
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+
 " Go
 let g:go_highlight_types = 1 " This is part of vim-go
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_auto_sameids = 1 " highlight the variable when cursor is on it
+let g:go_fmt_command = "goimports" " auto import packages
+let g:go_auto_type_info = 1 " show type info on status line
+let g:go_info_mode = 'guru'
+let g:go_updatetime = 200
 
 " Terraform
 " call terraform fmt on save
