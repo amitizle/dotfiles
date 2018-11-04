@@ -9,7 +9,7 @@ promptinit
 colors
 # Alt + backspace for deleting up to a slash (for example)
 select-word-style bash
-fpath=(/usr/local/share/zsh-completions $fpath)
+fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh/site-functions $fpath)
 
 ###########
 # Aliases #
