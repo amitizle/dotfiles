@@ -12,6 +12,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tomtom/tcomment_vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 """""""""""""""""""""""
 " linters & structure "
@@ -56,6 +57,7 @@ Plug 'vim-erlang/vim-erlang-runtime', { 'for': 'erlang' }
 " Rust "
 """"""""
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 
 """"""""""""
 " Markdown "
@@ -122,7 +124,7 @@ let g:airline_theme='base16_solarized'
 let g:airline_powerline_fonts = 1
 
 " General settings
-set shell=/usr/local/bin/zsh
+set shell=/bin/zsh
 set history=700
 set ruler
 set number
@@ -235,6 +237,13 @@ endif
 
 " snippets
 let g:UltiSnipsExpandTrigger="<tab>"
+
+" gutentags
+let g:gutentags_ctags_executable="/usr/local/bin/ctags"
+let g:gutentags_cache_dir = '~/.cache/gutentags'
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_write = 0
 
 " Go delve mapping
 map <leader>b :DlvToggleBreakpoint<CR>

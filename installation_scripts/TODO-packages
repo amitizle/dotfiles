@@ -1,0 +1,4 @@
+neovim https://github.com/neovim/neovim/releases
+tig https://github.com/jonas/tig/blob/master/INSTALL.adoc
+ctags https://github.com/universal-ctags/ctags-snap
+tmux https://github.com/tmux/tmux

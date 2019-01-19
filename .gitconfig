@@ -6,6 +6,10 @@
 [user]
     email = amit.goldberg@gmail.com
     name = Amit Goldberg
+    username = amitizle
+
+[includeIf "gitdir:~/qed-it/"]
+  path = /home/amit/.gitconfig_work
 
 [color]
     branch = auto
@@ -33,6 +37,7 @@
     lastag = describe --tags --abbrev=0
     changed-files = show --pretty="" --name-only
     st = status
+    untracked = ls-files --others --exclude-standard
 
     cl = clone
 

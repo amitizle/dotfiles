@@ -11,19 +11,28 @@ colors
 select-word-style bash
 fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh/site-functions $fpath)
 
+##############################
+# share history between tabs #
+##############################
+# Appends every command to the history file once it is executed
+setopt inc_append_history
+# Reloads the history whenever you use it
+setopt share_history
+
 ###########
 # Aliases #
 ###########
-alias vlc="open -na /Applications/VLC.app/Contents/MacOS/VLC"
 alias shrug='echo -n "¯\_(ツ)_/¯" | pbcopy'
+alias pssh='parallel-ssh'
 alias sqlite='sqlite3 -column -header'
 alias vim='vim -p'
 alias vi='vim -p'
 alias nvim='nvim -p'
 alias diff='colordiff'
-alias screen='TERM=xterm-256color screen'
+alias screen='TERM=xterm-256color tmux'
 alias bc='bc -l'
 alias c='xargs echo -n | pbcopy'
+alias xclip='xclip -selection clipboard'
 alias l='ls -lthFAr'
 alias mkdir='mkdir -pv'
 alias ll='ls -alF'
@@ -51,6 +60,7 @@ alias docker-ps='docker ps -a --format "{{.Names}} ({{.Image}}): {{.Status}} (Ru
 alias docker-run-command='docker inspect  --format "{{.Name}} {{.Config.Cmd}}" $(docker ps -a -q)'
 alias docker-stop-all='docker stop $(docker ps -q)'
 alias docker-ips='docker inspect -f "{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $(docker ps -aq)'
+alias docker-image-digest="docker inspect --format='{{index .RepoDigests 0}}'"
 
 ############
 # Minikube #
@@ -123,7 +133,7 @@ function beauty_title(){
 }
 
 function random_string(){
-  date +%s | shasum -a 256 | base64 | head -c 32 ; echo
+  openssl rand -base64 32
 }
 
 #######
@@ -249,8 +259,8 @@ function iex_version(){
   . $HOME/.kiex/elixirs/elixir-"$ELIXIR_VERSION".env
 }
 
-erl_version "20.2"
-iex_version "1.5.1"
+# erl_version "20.2"
+# iex_version "1.5.1"
 alias erl_observer='erl -sname observer -run observer -detached'
 
 ########
@@ -264,7 +274,7 @@ alias ber='bundle exec rake'
 #######
 # Lua #
 #######
-eval $(luarocks path --bin)
+# eval $(luarocks path --bin)
 
 ##############
 # Start tmux #
