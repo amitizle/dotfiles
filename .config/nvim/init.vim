@@ -203,7 +203,8 @@ let g:go_auto_sameids = 1 " highlight the variable when cursor is on it
 let g:go_fmt_command = "goimports" " auto import packages
 let g:go_auto_type_info = 1 " show type info on status line
 let g:go_info_mode = 'guru'
-let g:go_updatetime = 200
+let g:go_updatetime = 300
+let g:go_addtags_transform = "snakecase"
 
 " Terraform
 " call terraform fmt on save

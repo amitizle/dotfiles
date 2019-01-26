@@ -22,7 +22,7 @@ setopt share_history
 ###########
 # Aliases #
 ###########
-alias shrug='echo -n "¯\_(ツ)_/¯" | pbcopy'
+alias shrug='echo -n "¯\_(ツ)_/¯" | xclip -selection clipboard'
 alias pssh='parallel-ssh'
 alias sqlite='sqlite3 -column -header'
 alias vim='vim -p'
