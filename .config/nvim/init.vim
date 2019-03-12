@@ -5,14 +5,14 @@ call plug#begin()
 """""""""
 Plug 'tpope/vim-surround'
 Plug 'tmhedberg/matchit'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tomtom/tcomment_vim'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'mileszs/ack.vim'
 
 """""""""""""""""""""""
 " linters & structure "
@@ -30,6 +30,7 @@ Plug 'vitalk/vim-simple-todo', { 'for': 'todo' }
 Plug 'vim-airline/vim-airline' " airline
 Plug 'vim-airline/vim-airline-themes'
 Plug 'lifepillar/vim-solarized8'
+Plug 'joshdick/onedark.vim'
 
 """""""""""""
 " Terraform "
@@ -73,7 +74,7 @@ Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': '
 """"""""""""""""
 " Autocomplete "
 """"""""""""""""
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 """"""""""""
 " Snippets "
@@ -84,16 +85,13 @@ Plug 'honza/vim-snippets' " snippets
 """"""
 " Go "
 """"""
-Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'} " requires go get -u github.com/nsf/gocode
 Plug 'fatih/vim-go', { 'for' : 'go' }
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'sebdah/vim-delve', { 'for' : 'go' } " requires go get -u github.com/derekparker/delve/cmd/dlv
 
 """"""""
 " Ruby "
 """"""""
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'haml', 'eruby'] }
-Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'tpope/vim-rbenv', { 'for': 'ruby' }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
@@ -104,6 +102,16 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
+"""""""""
+" LaTex "
+"""""""""
+Plug 'lervag/vimtex', { 'for' : ['tex', 'sty'] }
+
+""""""""
+" TOML "
+""""""""
+Plug 'cespare/vim-toml', { 'for' : 'toml' }
+
 call plug#end()
 
 " Look & feel, truecolor and solarized colorscheme
@@ -111,16 +119,16 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 set background=dark
-colorscheme solarized8_flat
+" colorscheme solarized8_flat
+colorscheme onedark
 syntax enable
 highlight clear Comment
 highlight Comment guifg=#5E5E5E
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 
 " airline
-" AirlineTheme solarized_flood
 let g:airline_symbols = {}
-let g:airline_theme='base16_solarized'
+let g:airline_theme='onedark'
 let g:airline_powerline_fonts = 1
 
 " General settings
@@ -183,8 +191,6 @@ au BufRead,BufNewFile *.ex setfiletype elixir
 au BufRead,BufNewFile *.exs setfiletype elixir
 au BufRead,BufNewFile *.lfe setfiletype lfe
 au BufRead,BufNewFile *.todo setfiletype todo
-" Run python -m json.tool after saving json files
-autocmd BufWritePost *.json %!python -m json.tool
 
 " ale linter
 let g:ale_sign_error = '⤫'
@@ -218,34 +224,55 @@ let g:gitgutter_signs = 1
 let g:gitgutter_highlight_lines = 0
 let g:gitgutter_enabled = 1
 
-" autocomplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const'] " Go
-let g:deoplete#sources#go#pointer = 1
-
 " fuzzy
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
+let g:fzf_action = { 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 let g:fzf_command_prefix = 'Fzf'
-if executable('fzf')
-  nnoremap <leader>v :FzfFiles<cr>
-  nnoremap <leader>u :FzfTags<cr>
-  nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
-endif
+nnoremap <c-p> :FZF<cr>
+" if executable('fzf')
+"   nnoremap <leader>v :FzfFiles<cr>
+"   nnoremap <leader>u :FzfTags<cr>
+" endif
 
 " snippets
 let g:UltiSnipsExpandTrigger="<tab>"
 
-" gutentags
-let g:gutentags_ctags_executable="/usr/local/bin/ctags"
-let g:gutentags_cache_dir = '~/.cache/gutentags'
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_new = 1
-let g:gutentags_generate_on_write = 0
-
 " Go delve mapping
 map <leader>b :DlvToggleBreakpoint<CR>
 map <leader>n :DlvToggleTracepoint<CR>
+
+" JSON
+" Command to tidy json formatted file
+" this also sorts keys (alpha-numeric sort)
+" Usage: :FormatJSON
+com! FormatJSON %!python -m json.tool
+
+" LaTex
+let g:tex_flavor  = 'latex'
+let g:tex_conceal = ''
+let g:vimtex_fold_manual = 1
+let g:vimtex_latexmk_continuous = 1
+let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_compiler_method = 'latexmk'
+let g:vimtex_compiler_latexmk = {
+      \ 'backend' : 'nvim',
+      \ 'background' : 1,
+      \ 'build_dir' : '',
+      \ 'callback' : 1,
+      \ 'continuous' : 1,
+      \ 'executable' : 'latexmk',
+      \ 'options' : [
+      \   '-shell-escape',
+      \   '-verbose',
+      \   '-file-line-error',
+      \   '-synctex=1',
+      \   '-interaction=nonstopmode',
+      \ ],
+      \}
+
+" ack.vim => the_silver_searcher
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif

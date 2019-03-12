@@ -58,7 +58,7 @@
     diff = diff --word-diff
     d = difftool
     dc = diff --cached
-    lastdiff = diff --word-diff HEAD^ HEAD
+    lastdiff = diff HEAD^ HEAD
 
 [diff]
 	tool = vimdiff

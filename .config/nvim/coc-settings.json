@@ -1,0 +1,42 @@
+{
+    "coc.preferences.noselect": true,
+    "coc.preferences.timeout": 500,
+    "languageserver": {
+        "bash": {
+            "args": [
+                "start"
+            ],
+            "command": "bash-language-server",
+            "filetypes": [
+                "sh"
+            ],
+            "ignoredRootPaths": [
+                "~"
+            ]
+        },
+        "dockerfile": {
+            "args": [
+                "--stdio"
+            ],
+            "command": "docker-langserver",
+            "filetypes": [
+                "dockerfile"
+            ]
+        },
+        "golang": {
+            "args": [
+                "--diagnostics-style=instant"
+            ],
+            "command": "bingo",
+            "filetypes": [
+                "go"
+            ],
+            "rootPatterns": [
+                "go.mod",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ]
+        }
+    }
+}

@@ -9,7 +9,7 @@ promptinit
 colors
 # Alt + backspace for deleting up to a slash (for example)
 select-word-style bash
-fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh/site-functions $fpath)
+fpath=($HOME/.completion /usr/local/share/zsh-completions /usr/local/share/zsh/site-functions $fpath)
 
 ##############################
 # share history between tabs #
@@ -39,23 +39,27 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias grep='grep --color'
 alias info='info --vi-keys'
+alias emacs='/usr/local/bin/emacs --no-window-system'
 alias sl='ls'
 alias jcurl='curl -H "Accept: application/json" -H "Content-Type: application/json"'
 alias travis='/usr/local/bin/travis'
 alias vim='nvim'
+alias bw_search='bw --session $(secret-tool lookup BW_SESSION BW_SESSION) list items --pretty --search'
+alias keyring_reload='gnome-keyring-daemon -r -d'
 
 ####################
 # Extra completion #
 ####################
-for f in $(find $HOME/.completion/ -type f); do
-  source $f
-done
+# for f in $(find $HOME/.completion/ -type f); do
+#   source $f
+# done
 
 ##############
 # Docker/K8s #
 ##############
-alias docker-cleanup-all='docker stop $(docker ps -q); docker rm -f $(docker ps -qa); docker rmi -f $(docker images -qa)'
+alias docker-cleanup-all='docker stop $(docker ps -q); docker rm -f $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm -f $(docker volume ls -q)'
 alias docker-cleanup-containers='docker stop $(docker ps -q); docker rm -f $(docker ps -qa)'
+alias docker-cleanup-volumes='docker volume rm -f $(docker volume ls -q)'
 alias docker-ps='docker ps -a --format "{{.Names}} ({{.Image}}): {{.Status}} (Running for {{.RunningFor}}, Created At: {{.CreatedAt}})"'
 alias docker-run-command='docker inspect  --format "{{.Name}} {{.Config.Cmd}}" $(docker ps -a -q)'
 alias docker-stop-all='docker stop $(docker ps -q)'
@@ -102,6 +106,9 @@ function vagrant-halt-all(){
 #==================
 #= *nix functions =
 #==================
+function open () {
+  xdg-open "$*" &
+}
 
 function decode_base64(){
   echo "$1" | base64 --decode ;
@@ -116,11 +123,6 @@ function create_file(){
 function ssh_connections_linux(){
   sudo netstat -atp | grep 'ESTABLISHED.*ssh '
 }
-
-function ssh_connections_osx(){
-  lsof -i tcp | grep "^ssh"
-}
-
 
 function times(){
   for i in $(seq $1); do ${*:2}; done;
@@ -200,7 +202,7 @@ function pdfjoin(){
 
 function wttr()
 {
-  curl -H "Accept-Language: en" wttr.in/"${1:-Dublin}"
+  curl -H "Accept-Language: en" wttr.in/"${1:-Tel Aviv}"
 }
 
 function is_yaml(){
@@ -213,6 +215,11 @@ function yaml_to_json(){
 
 function is_json(){
   ruby -r'json' -e "begin JSON.parse(File.read('$1')); puts 'YES'; rescue Exception => e; puts 'NO'; end"
+}
+
+# reduce_pdf_size input output
+function reduce_pdf_size() {
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$2" "$1"
 }
 
 ##############
@@ -282,3 +289,5 @@ alias ber='bundle exec rake'
 [[ -z "$TMUX" ]] && tmux
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
