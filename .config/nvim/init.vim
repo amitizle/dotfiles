@@ -13,6 +13,9 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tomtom/tcomment_vim'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'mileszs/ack.vim'
+" Buffer explorer, 'be' (normal open) or 'bt' (toggle open / close)
+" or 'bs' (force horizontal split open) or 'bv' (force vertical split open)
+Plug 'jlanzarotta/bufexplorer'
 
 """""""""""""""""""""""
 " linters & structure "
