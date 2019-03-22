@@ -117,6 +117,9 @@ Plug 'cespare/vim-toml', { 'for' : 'toml' }
 
 call plug#end()
 
+" Neovim things
+let g:python3_host_prog = "/usr/bin/python3"
+
 " Look & feel, truecolor and solarized colorscheme
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -210,10 +213,21 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
 let g:go_auto_sameids = 1 " highlight the variable when cursor is on it
 let g:go_fmt_command = "goimports" " auto import packages
-let g:go_auto_type_info = 1 " show type info on status line
+let g:go_auto_type_info = 0 " don't show type info on status line
 let g:go_info_mode = 'guru'
-let g:go_updatetime = 300
+let g:go_updatetime = 700
 let g:go_addtags_transform = "snakecase"
+let g:go_build_tags = 'release'
+let g:go_def_mode = 'godef'
+let g:go_disable_autoinstall=0
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'goimports', 'errcheck']
+let g:go_metalinter_deadline = "2s"
+let g:go_metalinter_autosave = 1
+let g:go_list_type = "quickfix"
+let g:go_fmt_fail_silently = 1
+let g:go_list_height=5 " suggestions/error list should be lower
+let g:go_jump_to_error=0 " Don't jump to errors on save
+let g:go_echo_command_info=0 " Don't show errors, for example gometalinter FAIL errors
 
 " Terraform
 " call terraform fmt on save
@@ -234,10 +248,6 @@ let g:fzf_action = { 'ctrl-t': 'tab split',
 let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 let g:fzf_command_prefix = 'Fzf'
 nnoremap <c-p> :FZF<cr>
-" if executable('fzf')
-"   nnoremap <leader>v :FzfFiles<cr>
-"   nnoremap <leader>u :FzfTags<cr>
-" endif
 
 " snippets
 let g:UltiSnipsExpandTrigger="<tab>"
