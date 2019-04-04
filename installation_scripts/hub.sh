@@ -2,7 +2,7 @@
 
 source ./utils.sh
 
-HUB_VERSION="2.7.0"
+HUB_VERSION="2.11.1"
 
 HUB_SOURCE="https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz"
 HUB_TMP_FILE=/tmp/hub.tgz

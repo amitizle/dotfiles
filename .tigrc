@@ -1,13 +1,13 @@
-color default white black
-color cursor default magenta
-color date cyan default
-color delimiter cyan default
-color line-number yellow default
-color diff-header yellow default
-color diff-index blue default
-color diff-chunk magenta default
-color "Reported-by:" green default
-color graph-commit cyan default
+color default #ABB2BF #282C34
+color cursor #ABB2BF default
+color date #E06C75 default
+color delimiter #98C379 default
+color line-number #E5C07B default
+color diff-header #E5C07B default
+color diff-index #61AFEF default
+color diff-chunk #C678DD default
+color "Reported-by:" #56B6C2 default
+color graph-commit #C678DD default
 
 
 set vertical-split = false

@@ -223,6 +223,11 @@ function reduce_pdf_size() {
   gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$2" "$1"
 }
 
+###############
+# Network etc #
+###############
+alias my-ip="dig -t TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/\"//g'"
+
 ##############
 # ZSH Config #
 ##############
