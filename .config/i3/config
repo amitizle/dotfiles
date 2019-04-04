@@ -27,7 +27,7 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id synclient HorizEdgeScroll=1 VertEdgeScroll=1 VertScrollDelta=-111
 exec --no-startup-id nm-applet
 
-exec --no-startup-id compton -b
+exec --no-startup-id compton -b --config ~/.config/compton.conf
 exec --no-startup-id dunst
 
 #===============================================
@@ -50,6 +50,11 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec alacritty
 # bindsym Print exec scrot -q 100 '%d-%m-%Y-%T_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
+
+# scratchpad, see in https://build.i3wm.org/docs/userguide.html
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
+for_window [class="xfce4-notes"] move to scratchpad
 
 # kill focused window
 bindsym $mod+q kill
