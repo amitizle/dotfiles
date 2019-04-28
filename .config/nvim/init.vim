@@ -11,7 +11,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tomtom/tcomment_vim'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'mileszs/ack.vim'
 " Buffer explorer, 'be' (normal open) or 'bt' (toggle open / close)
 " or 'bs' (force horizontal split open) or 'bv' (force vertical split open)
@@ -211,14 +211,19 @@ let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_function_parameters = 1
 let g:go_auto_sameids = 1 " highlight the variable when cursor is on it
 let g:go_fmt_command = "goimports" " auto import packages
 let g:go_auto_type_info = 0 " don't show type info on status line
-let g:go_info_mode = 'guru'
+" let g:go_info_mode = 'guru'
 let g:go_updatetime = 700
 let g:go_addtags_transform = "snakecase"
 let g:go_build_tags = 'release'
-let g:go_def_mode = 'godef'
+" let g:go_def_mode = 'godef'
+let g:go_def_mode = 'guru'
+let g:go_info_mode = 'guru'
+" let g:go_def_mode = 'gopls'
+" let g:go_info_mode = 'gopls'
 let g:go_disable_autoinstall=0
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'goimports', 'errcheck']
 let g:go_metalinter_deadline = "2s"

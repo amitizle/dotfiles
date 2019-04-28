@@ -223,6 +223,12 @@ function reduce_pdf_size() {
   gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$2" "$1"
 }
 
+# use jq on yaml files
+# jqy <path_to_file.yml> .
+jqy() {
+  ruby -r'yaml' -r'json' -e "puts JSON.generate(YAML.load_file('$1'))" | jq "${@:2}"
+}
+
 ###############
 # Network etc #
 ###############

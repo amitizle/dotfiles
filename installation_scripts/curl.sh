@@ -4,7 +4,7 @@ set -e
 
 source ./utils.sh
 
-CURL_VERSION="7.64.0"
+CURL_VERSION="7.64.1"
 CURL_TMP_FILE=/tmp/curl.tar.gz
 CURL_TMP_DIR=/tmp/curl
 

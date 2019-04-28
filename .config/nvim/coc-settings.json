@@ -24,10 +24,7 @@
             ]
         },
         "golang": {
-            "args": [
-                "--diagnostics-style=instant"
-            ],
-            "command": "bingo",
+            "command": "gopls",
             "filetypes": [
                 "go"
             ],
