@@ -1,25 +1,8 @@
 # Dot files
 
-A collection of my most used ones.
-This repo is for my Mac machines only.
+Those are tailored for _Ubuntu_, however most of them are decoupled from
+any specific distro.
 
-```
-├── .config
-│   ├── alacritty
-│   │   └── alacritty.yml # Alacritty terminal config
-│   └── nvim # NeoVim configuration
-│       ├── init.sh # Install required things for the configuration
-│       └── init.vim
-├── .gitconfig
-├── .gitignore_global
-├── .irbrc # Check out ruby.sh for default gems etc
-├── .kerlrc # Erlang version manager
-├── .tmux.conf # tmux is the best innit
-├── misc # some misc configs and stuff
-├── .zsh_addons # Addons for zsh, git branch for prompt is the only one for now
-│   ├── clone_addons.sh
-│   └── zsh_prompt # PS1 (shell prompt)
-├── .zshenv # Some more env setup
-├── .zshrc
-└── ruby.sh # install rbenv, ruby-build and rbenv-default-gems
-```
+Since the README is too short, here's a gif:
+
+![:/](https://media.giphy.com/media/IPqbZhStIeZdS/giphy.gif)
