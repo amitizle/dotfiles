@@ -4,9 +4,10 @@
     excludesfile = ~/.gitignore_global
 
 [user]
-    email = amit.goldberg@gmail.com
-    name = Amit Goldberg
-    username = amitizle
+  email = amit.goldberg@gmail.com
+  name = Amit Goldberg
+  username = amitizle
+	signingkey = E45C2795FC466D38
 
 [includeIf "gitdir:~/qed-it/"]
   path = /home/amit/.gitconfig_work
@@ -59,6 +60,9 @@
     d = difftool
     dc = diff --cached
     lastdiff = diff HEAD^ HEAD
+    boom = !git clean -fd && git co -- .
+    sm = submodule update --init --recursive
+    root-path = rev-parse --show-toplevel
 
 [diff]
 	tool = vimdiff
@@ -71,3 +75,7 @@
 [merge]
 	tool = vimdiff
   conflictstyle = diff3
+[commit]
+	gpgsign = true
+[gpg]
+	program = /usr/bin/gpg2
