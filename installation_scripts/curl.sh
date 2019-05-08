@@ -8,6 +8,8 @@ CURL_VERSION="7.64.1"
 CURL_TMP_FILE=/tmp/curl.tar.gz
 CURL_TMP_DIR=/tmp/curl
 
+log_info "Installing dependencies, sudo will be needed"
+sudo apt-get -y install build-essential nghttp2 libnghttp2-dev libssl-dev
 cleanup() {
   rm -rf "$CURL_TMP_FILE" "$CURL_TMP_DIR"
 }

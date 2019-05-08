@@ -47,6 +47,7 @@ alias vim='nvim'
 alias bw_search='bw --session $(secret-tool lookup BW_SESSION BW_SESSION) list items --pretty --search'
 alias keyring_reload='gnome-keyring-daemon -r -d'
 alias gpg='gpg2'
+alias gh-list-prs='hub pr list -f "%pC[%pS] %t%n  %U%n  %H => %B%n%n"'
 
 ####################
 # Extra completion #

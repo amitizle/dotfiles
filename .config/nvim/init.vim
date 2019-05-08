@@ -74,11 +74,6 @@ endfunction
 
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown' }
 
-""""""""""""""""
-" Autocomplete "
-""""""""""""""""
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
 """"""""""""
 " Snippets "
 """"""""""""
@@ -124,6 +119,7 @@ let g:python3_host_prog = "/usr/bin/python3"
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
+set guicursor=
 set background=dark
 " colorscheme solarized8_flat
 colorscheme onedark
@@ -220,10 +216,10 @@ let g:go_updatetime = 700
 let g:go_addtags_transform = "snakecase"
 let g:go_build_tags = 'release'
 " let g:go_def_mode = 'godef'
-let g:go_def_mode = 'guru'
-let g:go_info_mode = 'guru'
-" let g:go_def_mode = 'gopls'
-" let g:go_info_mode = 'gopls'
+" let g:go_def_mode = 'guru'
+" let g:go_info_mode = 'guru'
+let g:go_def_mode = 'godef'
+let g:go_info_mode = 'godef'
 let g:go_disable_autoinstall=0
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'goimports', 'errcheck']
 let g:go_metalinter_deadline = "2s"

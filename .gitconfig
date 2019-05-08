@@ -75,6 +75,7 @@
 [merge]
 	tool = vimdiff
   conflictstyle = diff3
+  ff = only
 [commit]
 	gpgsign = true
 [gpg]
