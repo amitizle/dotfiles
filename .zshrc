@@ -59,7 +59,19 @@ alias gh-list-prs='hub pr list -f "%pC[%pS] %t%n  %U%n  %H => %B%n%n"'
 ##############
 # Docker/K8s #
 ##############
-alias docker-cleanup-all='docker stop $(docker ps -q); docker rm -f $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm -f $(docker volume ls -q)'
+docker-cleanup-all(){
+  echo "Stopping all containers"
+  docker stop $(docker ps -q) 2>/dev/null
+  echo "Removing all containers"
+  docker rm -f $(docker ps -qa) 2>/dev/null
+  echo "Removing all images"
+  docker rmi -f $(docker images -qa) 2>/dev/null
+  echo "Removing all volues"
+  docker volume rm -f $(docker volume ls -q) 2>/dev/null
+  echo "Removing all networks"
+  docker network rm $(docker network ls -q) 2>/dev/null
+  echo "Done"
+}
 alias docker-cleanup-containers='docker stop $(docker ps -q); docker rm -f $(docker ps -qa)'
 alias docker-cleanup-volumes='docker volume rm -f $(docker volume ls -q)'
 alias docker-ps='docker ps -a --format "{{.Names}} ({{.Image}}): {{.Status}} (Running for {{.RunningFor}}, Created At: {{.CreatedAt}})"'
@@ -244,7 +256,7 @@ export GIT_PROMPT_EXECUTABLE="haskell"
 source $HOME/.env_secrets
 source $HOME/.zsh_addons/zsh-git-prompt/zshrc.sh
 source $HOME/.zsh_addons/zsh_prompt
-for s in $(find $HOME/.zsh_sources -type f)
+for s in $(find -L $HOME/.zsh_sources -type f)
 do
   source $s
 done

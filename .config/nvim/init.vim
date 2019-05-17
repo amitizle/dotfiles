@@ -72,7 +72,7 @@ function! BuildComposer(info)
   endif
 endfunction
 
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown' }
+" Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown' }
 
 """"""""""""
 " Snippets "
@@ -113,7 +113,7 @@ Plug 'cespare/vim-toml', { 'for' : 'toml' }
 call plug#end()
 
 " Neovim things
-let g:python3_host_prog = "/usr/bin/python3"
+let g:python3_host_prog = "/usr/local/bin/python3.7"
 
 " Look & feel, truecolor and solarized colorscheme
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -215,13 +215,17 @@ let g:go_auto_type_info = 0 " don't show type info on status line
 let g:go_updatetime = 700
 let g:go_addtags_transform = "snakecase"
 let g:go_build_tags = 'release'
-" let g:go_def_mode = 'godef'
-" let g:go_def_mode = 'guru'
+" let g:go_info_mode='gopls'
 " let g:go_info_mode = 'guru'
 let g:go_def_mode = 'godef'
-let g:go_info_mode = 'godef'
+" let g:go_def_mode = 'guru'
+" let g:go_info_mode = 'godef'
+" let g:go_def_mode = 'guru'
+" let g:go_info_mode = 'guru'
+" let g:go_def_mode='gopls'
+" let g:go_info_mode='gopls'
 let g:go_disable_autoinstall=0
-let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'goimports', 'errcheck']
+" let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'goimports', 'errcheck']
 let g:go_metalinter_deadline = "2s"
 let g:go_metalinter_autosave = 1
 let g:go_list_type = "quickfix"
