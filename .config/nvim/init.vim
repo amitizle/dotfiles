@@ -11,11 +11,14 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tomtom/tcomment_vim'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-unimpaired' " mostly for ]n and [n for next conflict in scm diff
 " Buffer explorer, 'be' (normal open) or 'bt' (toggle open / close)
 " or 'bs' (force horizontal split open) or 'bv' (force vertical split open)
 Plug 'jlanzarotta/bufexplorer'
+" DB client
+Plug 'tpope/vim-dadbod'
 
 """""""""""""""""""""""
 " linters & structure "
@@ -62,6 +65,11 @@ Plug 'vim-erlang/vim-erlang-runtime', { 'for': 'erlang' }
 """"""""
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+
+"""""""""
+" Nginx "
+"""""""""
+Plug 'chr4/nginx.vim', {'for': 'nginx'}
 
 """"""""""""
 " Markdown "
@@ -141,6 +149,8 @@ set number
 filetype plugin on
 filetype indent on
 let mapleader = ","
+set foldmethod=syntax " fold by syntax
+set foldlevelstart=20
 
 " backup files (~) in a common location if possible
 set backup
@@ -193,6 +203,7 @@ au BufRead,BufNewFile *.ex setfiletype elixir
 au BufRead,BufNewFile *.exs setfiletype elixir
 au BufRead,BufNewFile *.lfe setfiletype lfe
 au BufRead,BufNewFile *.todo setfiletype todo
+au BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 
 " ale linter
 let g:ale_sign_error = '⤫'
@@ -211,26 +222,17 @@ let g:go_highlight_function_parameters = 1
 let g:go_auto_sameids = 1 " highlight the variable when cursor is on it
 let g:go_fmt_command = "goimports" " auto import packages
 let g:go_auto_type_info = 0 " don't show type info on status line
-" let g:go_info_mode = 'guru'
 let g:go_updatetime = 700
 let g:go_addtags_transform = "snakecase"
 let g:go_build_tags = 'release'
-" let g:go_info_mode='gopls'
-" let g:go_info_mode = 'guru'
 let g:go_def_mode = 'godef'
-" let g:go_def_mode = 'guru'
-" let g:go_info_mode = 'godef'
-" let g:go_def_mode = 'guru'
-" let g:go_info_mode = 'guru'
-" let g:go_def_mode='gopls'
-" let g:go_info_mode='gopls'
 let g:go_disable_autoinstall=0
 " let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'goimports', 'errcheck']
 let g:go_metalinter_deadline = "2s"
 let g:go_metalinter_autosave = 1
 let g:go_list_type = "quickfix"
 let g:go_fmt_fail_silently = 1
-let g:go_list_height=5 " suggestions/error list should be lower
+let g:go_list_height=6 " suggestions/error list should be lower
 let g:go_jump_to_error=0 " Don't jump to errors on save
 let g:go_echo_command_info=0 " Don't show errors, for example gometalinter FAIL errors
 
@@ -256,6 +258,10 @@ nnoremap <c-p> :FZF<cr>
 
 " snippets
 let g:UltiSnipsExpandTrigger="<tab>"
+
+" Rust
+let g:racer_cmd = "/home/amit/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
 
 " Go delve mapping
 map <leader>b :DlvToggleBreakpoint<CR>

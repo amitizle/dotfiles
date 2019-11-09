@@ -10,3 +10,4 @@ export BROWSER=/usr/bin/firefox
 EXTRA_PATHS="$HOME/bin:$HOME/go/bin:$HOME/.mix/escripts:$HOME/.npm-global/bin:$HOME/.apps/bin:$GOPATH/bin:/usr/local/bin:$HOME/.rbenv/bin"
 export PATH="$EXTRA_PATHS:$PATH"
 export GPG_TTY=$(tty)
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libgtk3-nocsd.so.0

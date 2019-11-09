@@ -19,6 +19,40 @@ prompt_branch() {
   echo -n '$(git_super_status)'
 }
 
-# Solarized:
-# prompt="%F{cyan}[%*] %n%F{yellow}@%F{cyan}%m%F{yellow} %Bin%b %F{blue}%~ %(?,%F{green}${CHECKMARK},%F{red}${BALLOT}) [%?]${NEWLINE}%F{reset_color}$(prompt_branch)%F{reset_color}\$ "
 prompt="%F{cyan}[%*] %F{green]}%n@%m%{$fg_bold[red]%} %Bin%b %F{cyan]}%~ %(?,%F{green}${CHECKMARK},%F{red}${BALLOT}) [%?]${NEWLINE}%F{reset_color}$(prompt_branch)%F{reset_color}\$ "
+#
+
+# BULLETTRAIN_PROMPT_ORDER=(
+#     time
+#     status
+#     context
+#     dir
+#     go
+#     git
+#     cmd_exec_time
+#   ) \
+# BULLETTRAIN_TIME_BG=green \
+# BULLETTRAIN_TIME_FG=black \
+# BULLETTRAIN_STATUS_BG=blue \
+# BULLETTRAIN_STATUS_FG=black \
+# BULLETTRAIN_CONTEXT_BG=magenta \
+# BULLETTRAIN_CONTEXT_FG=black \
+# BULLETTRAIN_DIR_BG=blue \
+# BULLETTRAIN_DIR_FG=black \
+# BULLETTRAIN_DIR_EXTENDED=2 \
+# BULLETTRAIN_GO_BG=green \
+# BULLETTRAIN_GO_FG=black \
+# BULLETTRAIN_GO_PREFIX="go" \
+# BULLETTRAIN_GIT_COLORIZE_DIRTY_BG_COLOR=red \
+# BULLETTRAIN_GIT_COLORIZE_DIRTY_FG_COLOR=black \
+# # BULLETTRAIN_GIT_BG=15 \
+# BULLETTRAIN_GIT_BG=253 \
+# BULLETTRAIN_GIT_FG=black \
+# BULLETTRAIN_GIT_EXTENDED=false \
+#
+# BULLETTRAIN_EXEC_TIME_BG=yellow \
+# BULLETTRAIN_EXEC_TIME_FG=black \
+# BULLETTRAIN_STATUS_EXIT_SHOW=true \
+# BULLETTRAIN_GIT_COLORIZE_DIRTY=true \
+# . "${HOME}/.zsh_addons/bullet-train.zsh"
+#

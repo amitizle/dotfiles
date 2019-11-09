@@ -33,6 +33,7 @@ alias screen='TERM=xterm-256color tmux'
 alias bc='bc -l'
 alias c='xargs echo -n | pbcopy'
 alias xclip='xclip -selection clipboard'
+alias ls='ls --color=auto'
 alias l='ls -lthFAr'
 alias mkdir='mkdir -pv'
 alias ll='ls -alF'
@@ -44,10 +45,14 @@ alias sl='ls'
 alias jcurl='curl -H "Accept: application/json" -H "Content-Type: application/json"'
 alias travis='/usr/local/bin/travis'
 alias vim='nvim'
-alias bw_search='bw --session $(secret-tool lookup BW_SESSION BW_SESSION) list items --pretty --search'
+alias bw_search='bw --session $(pass Bitwarden/session) list items --pretty --search'
 alias keyring_reload='gnome-keyring-daemon -r -d'
 alias gpg='gpg2'
 alias gh-list-prs='hub pr list -f "%pC[%pS] %t%n  %U%n  %H => %B%n%n"'
+alias pw='pwgen --numerals --capitalize --secure --num-passwords 1 --symbols 16'
+alias diff-git-w='git diff --ignore-space-change'
+alias top-cpu='ps aux | sort -rk 3,3 | head -n 10'
+alias todo="todo.sh -d ${HOME}/.config/todo.txt/todo.cfg"
 
 ####################
 # Extra completion #
@@ -61,7 +66,7 @@ alias gh-list-prs='hub pr list -f "%pC[%pS] %t%n  %U%n  %H => %B%n%n"'
 ##############
 docker-cleanup-all(){
   echo "Stopping all containers"
-  docker stop $(docker ps -q) 2>/dev/null
+  docker stop -t5 $(docker ps -q) 2>/dev/null
   echo "Removing all containers"
   docker rm -f $(docker ps -qa) 2>/dev/null
   echo "Removing all images"
@@ -72,7 +77,7 @@ docker-cleanup-all(){
   docker network rm $(docker network ls -q) 2>/dev/null
   echo "Done"
 }
-alias docker-cleanup-containers='docker stop $(docker ps -q); docker rm -f $(docker ps -qa)'
+alias docker-cleanup-containers='docker stop -t5 $(docker ps -q); docker rm -f $(docker ps -qa)'
 alias docker-cleanup-volumes='docker volume rm -f $(docker volume ls -q)'
 alias docker-ps='docker ps -a --format "{{.Names}} ({{.Image}}): {{.Status}} (Running for {{.RunningFor}}, Created At: {{.CreatedAt}})"'
 alias docker-run-command='docker inspect  --format "{{.Name}} {{.Config.Cmd}}" $(docker ps -a -q)'
@@ -203,6 +208,10 @@ function gi() {
     exit 1
   fi
   curl -L -s "https://www.gitignore.io/api/$@"
+}
+
+function gitp() {
+  git push origin $(git currbr)
 }
 
 ##############

@@ -4,8 +4,8 @@
     excludesfile = ~/.gitignore_global
 
 [user]
-  email = amit.goldberg@gmail.com
-  name = Amit Goldberg
+	email = amit.goldberg@gmail.com
+	name = Amit Goldberg
   username = amitizle
 	signingkey = E45C2795FC466D38
 
@@ -50,6 +50,7 @@
     br = branch
     #list commands
     le = log --oneline --decorate
+    l = log --show-signature
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     ls1 = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
     lg = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
@@ -63,6 +64,7 @@
     boom = !git clean -fd && git co -- .
     sm = submodule update --init --recursive
     root-path = rev-parse --show-toplevel
+    currbr = rev-parse --abbrev-ref HEAD
 
 [diff]
 	tool = vimdiff
@@ -74,9 +76,14 @@
   cmd = nvim -d $LOCAL $REMOTE
 [merge]
 	tool = vimdiff
+	# tool = vimdiff
   conflictstyle = diff3
   ff = only
 [commit]
 	gpgsign = true
 [gpg]
 	program = /usr/bin/gpg2
+[pager]
+	branch = false
+[log]
+  follow = true

@@ -2,7 +2,7 @@
 
 source ./utils.sh
 
-GIT_VERSION=2.21.0
+GIT_VERSION=2.24.0
 GIT_TMP_FILE=/tmp/git.tar.gz
 GIT_TMP_DIR=/tmp/git
 
