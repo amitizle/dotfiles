@@ -4,7 +4,8 @@ export LESS=' -R '
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 # BROWSER is used in tmux's plugin urlview https://github.com/tmux-plugins/tmux-urlview
-export BROWSER=/usr/bin/firefox
+# It's also used in with `hub`
+export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
