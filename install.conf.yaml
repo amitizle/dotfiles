@@ -1,0 +1,29 @@
+- link:
+    ~/.zshrc:
+      force: true
+      path: .zshrc
+    ~/.zshenv:
+      force: true
+      path: .zshenv
+    ~/.zsh_addons:
+      path: .zsh_addons
+      relink: true
+    ~/.zsh_sources:
+      path: .zsh_sources
+      relink: true
+    ~/.curlrc:
+      force: true
+      path: .curlrc
+    ~/.gitconfig:
+      force: true
+      path: .gitconfig
+    ~/.tigrc:
+      force: true
+      path: .tigrc
+    ~/.tmux.conf:
+      force: true
+      path: .tmux.conf
+    ~/.config:
+      glob: true
+      path: .config/*
+      relink: true

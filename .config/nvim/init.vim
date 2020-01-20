@@ -19,11 +19,19 @@ Plug 'tpope/vim-unimpaired' " mostly for ]n and [n for next conflict in scm diff
 Plug 'jlanzarotta/bufexplorer'
 " DB client
 Plug 'tpope/vim-dadbod'
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 
 """""""""""""""""""""""
 " linters & structure "
 """""""""""""""""""""""
 Plug 'w0rp/ale'
+
+""""""""""""""""""""
+" Typescript && JS "
+""""""""""""""""""""
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 
 """"""""""""""
 " todo lists "
@@ -121,7 +129,7 @@ Plug 'cespare/vim-toml', { 'for' : 'toml' }
 call plug#end()
 
 " Neovim things
-let g:python3_host_prog = "/usr/local/bin/python3.7"
+let g:python3_host_prog = "/usr/bin/python3"
 
 " Look & feel, truecolor and solarized colorscheme
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -142,7 +150,7 @@ let g:airline_theme='onedark'
 let g:airline_powerline_fonts = 1
 
 " General settings
-set shell=/bin/zsh
+set shell=/usr/local/bin/zsh
 set history=700
 set ruler
 set number

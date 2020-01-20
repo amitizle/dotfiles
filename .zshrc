@@ -1,8 +1,9 @@
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE=true
+# zmodload zsh/zprof
 
 autoload -Uz compinit promptinit colors select-word-style
-compinit -C
+compinit -i -C
 zmodload -i zsh/complist
 zmodload -i zsh/mapfile
 promptinit
@@ -16,24 +17,21 @@ fpath=($HOME/.completion /usr/local/share/zsh-completions /usr/local/share/zsh/s
 ##############################
 # Appends every command to the history file once it is executed
 setopt inc_append_history
-# Reloads the history whenever you use it
-setopt share_history
 
 ###########
 # Aliases #
 ###########
-alias shrug='echo -n "¯\_(ツ)_/¯" | xclip -selection clipboard'
+alias shrug='echo -n "¯\_(ツ)_/¯" | pbcopy'
 alias pssh='parallel-ssh'
 alias sqlite='sqlite3 -column -header'
-alias vim='vim -p'
-alias vi='vim -p'
+alias vim='nvim -p'
+alias vi='nvim -p'
 alias nvim='nvim -p'
 alias diff='colordiff'
 alias screen='TERM=xterm-256color tmux'
 alias bc='bc -l'
 alias c='xargs echo -n | pbcopy'
 alias xclip='xclip -selection clipboard'
-alias ls='ls --color=auto'
 alias l='ls -lthFAr'
 alias mkdir='mkdir -pv'
 alias ll='ls -alF'
@@ -43,12 +41,8 @@ alias info='info --vi-keys'
 alias emacs='/usr/local/bin/emacs --no-window-system'
 alias sl='ls'
 alias jcurl='curl -H "Accept: application/json" -H "Content-Type: application/json"'
-alias travis='/usr/local/bin/travis'
-alias vim='nvim'
 alias bw_search='bw --session $(pass Bitwarden/session) list items --pretty --search'
-alias keyring_reload='gnome-keyring-daemon -r -d'
-alias gpg='gpg2'
-alias gh-list-prs='hub pr list -f "%pC[%pS] %t%n  %U%n  %H => %B%n%n"'
+# alias gpg='gpg2'
 alias pw='pwgen --numerals --capitalize --secure --num-passwords 1 --symbols 16'
 alias diff-git-w='git diff --ignore-space-change'
 alias top-cpu='ps aux | sort -rk 3,3 | head -n 10'
@@ -101,33 +95,31 @@ function reset_minikube(){
 # Vagrant #
 ###########
 function vagrant-destroy-all(){
-  CURR_PATH=`pwd`
   vagrant global-status --prune # Refresh vagrant global cache on ~/.vagrant.d
   for machine_path in $(vagrant global-status | grep virtualbox | awk '{ print $5 }'); do
     echo "destroying machine in $machine_path"
-    cd $machine_path
+    pushd $machine_path
     vagrant destroy -f
+    popd
   done
-  cd $CURR_PATH
 }
 
 function vagrant-halt-all(){
-  CURR_PATH=`pwd`
   vagrant global-status --prune # Refresh vagrant global cache on ~/.vagrant.d
   for machine_path in $(vagrant global-status | grep virtualbox | awk '{ print $5 }'); do
     echo "halting machine in $machine_path"
-    cd $machine_path
+    pushd $machine_path
     vagrant halt -f
+    popd
   done
-  cd $CURR_PATH
 }
 
 #==================
 #= *nix functions =
 #==================
-function open () {
-  xdg-open "$*" &
-}
+# function open () {
+#   xdg-open "$*" &
+# }
 
 function decode_base64(){
   echo "$1" | base64 --decode ;
@@ -176,15 +168,6 @@ function verify_ssl_openssl(){
 functions private_git(){
   git config user.email "amit.goldberg@gmail.com";
   git config user.name "Amit Goldberg"
-}
-
-function pull_all_git(){
-  for dir in $(find . -type d -depth 1); do
-    echo "running git pull in $dir"
-    cd $dir
-    git pull
-    cd ..
-  done
 }
 
 function git_pr_merged(){
@@ -262,7 +245,6 @@ alias my-ip="dig -t TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/
 
 # Addons
 export GIT_PROMPT_EXECUTABLE="haskell"
-source $HOME/.env_secrets
 source $HOME/.zsh_addons/zsh-git-prompt/zshrc.sh
 source $HOME/.zsh_addons/zsh_prompt
 for s in $(find -L $HOME/.zsh_sources -type f)
@@ -321,8 +303,12 @@ alias ber='bundle exec rake'
 # Start tmux #
 ##############
 [[ -z "$TMUX" ]] && tmux
-[[ $TMUX = "" ]] && export TERM="screen-256color"
+[[ $TMUX = "" ]] && export TERM="xterm-256color"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+true
+
+# zprof
