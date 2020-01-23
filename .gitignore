@@ -4,3 +4,4 @@
 .config/nvim/.netrwhist
 .zsh_addons/cache/
 .zsh_addons/zsh-git-prompt/
+.zsh_sources/salto.sh

@@ -9,8 +9,8 @@
   username = amitizle
 	signingkey = 17FACF698E2BC940
 
-[includeIf "gitdir:~/qed-it/"]
-  path = /home/amit/.gitconfig_work
+[includeIf "gitdir:~/dev/salto/"]
+  path = ~/dev/salto/.gitconfig
 
 [color]
     branch = auto

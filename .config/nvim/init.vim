@@ -19,7 +19,7 @@ Plug 'tpope/vim-unimpaired' " mostly for ]n and [n for next conflict in scm diff
 Plug 'jlanzarotta/bufexplorer'
 " DB client
 Plug 'tpope/vim-dadbod'
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 
 """""""""""""""""""""""
@@ -27,11 +27,20 @@ Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 """""""""""""""""""""""
 Plug 'w0rp/ale'
 
+"""""""
+" HCL "
+"""""""
+Plug 'jvirtanen/vim-hcl' " syntax highlight
+Plug 'fatih/vim-hclfmt' " go get github.com/fatih/hclfmt
+
 """"""""""""""""""""
 " Typescript && JS "
 """"""""""""""""""""
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+" REQUIRED: Add a syntax file. YATS is the best
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', { 'for': 'typescript', 'do': './install.sh'}
 
 """"""""""""""
 " todo lists "
@@ -183,6 +192,7 @@ set shiftwidth=2
 set tabstop=2
 set ai "Auto indent
 set si "Smart indent
+set cindent
 set backspace=2
 set laststatus=2
 
@@ -212,6 +222,7 @@ au BufRead,BufNewFile *.exs setfiletype elixir
 au BufRead,BufNewFile *.lfe setfiletype lfe
 au BufRead,BufNewFile *.todo setfiletype todo
 au BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
+au BufRead,BufNewFile *.bp setfiletype hcl
 
 " ale linter
 let g:ale_sign_error = '⤫'
@@ -281,30 +292,12 @@ map <leader>n :DlvToggleTracepoint<CR>
 " Usage: :FormatJSON
 com! FormatJSON %!python -m json.tool
 
-" LaTex
-let g:tex_flavor  = 'latex'
-let g:tex_conceal = ''
-let g:vimtex_fold_manual = 1
-let g:vimtex_latexmk_continuous = 1
-let g:vimtex_compiler_progname = 'nvr'
-let g:vimtex_compiler_method = 'latexmk'
-let g:vimtex_compiler_latexmk = {
-      \ 'backend' : 'nvim',
-      \ 'background' : 1,
-      \ 'build_dir' : '',
-      \ 'callback' : 1,
-      \ 'continuous' : 1,
-      \ 'executable' : 'latexmk',
-      \ 'options' : [
-      \   '-shell-escape',
-      \   '-verbose',
-      \   '-file-line-error',
-      \   '-synctex=1',
-      \   '-interaction=nonstopmode',
-      \ ],
-      \}
-
 " ack.vim => the_silver_searcher
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
