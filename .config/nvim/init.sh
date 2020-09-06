@@ -14,6 +14,6 @@ echo "Downloading vim-plug"
 curl -sfLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-echo "Installing powerline fonts"
-git clone https://github.com/powerline/fonts.git ${TMPDIR}/powerline_fonts
-. ${TMPDIR}/powerline_fonts/install.sh
+# echo "Installing powerline fonts"
+# git clone https://github.com/powerline/fonts.git ${TMPDIR}/powerline_fonts
+# . ${TMPDIR}/powerline_fonts/install.sh

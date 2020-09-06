@@ -11,21 +11,22 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tomtom/tcomment_vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-unimpaired' " mostly for ]n and [n for next conflict in scm diff
 " Buffer explorer, 'be' (normal open) or 'bt' (toggle open / close)
 " or 'bs' (force horizontal split open) or 'bv' (force vertical split open)
 Plug 'jlanzarotta/bufexplorer'
 " DB client
 Plug 'tpope/vim-dadbod'
-" Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'blindFS/vim-reveal'
+Plug 'jremmen/vim-ripgrep'
 
-"""""""""""""""""""""""
-" linters & structure "
-"""""""""""""""""""""""
-Plug 'w0rp/ale'
+""""""""""""""""""""""""
+" linters & completion "
+""""""""""""""""""""""""
+Plug 'dense-analysis/ale'
+Plug 'Shougo/deoplete.nvim'
+Plug 'deoplete-plugins/deoplete-go'
+" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 
 """""""
 " HCL "
@@ -36,11 +37,13 @@ Plug 'fatih/vim-hclfmt' " go get github.com/fatih/hclfmt
 """"""""""""""""""""
 " Typescript && JS "
 """"""""""""""""""""
-" Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 " REQUIRED: Add a syntax file. YATS is the best
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhartington/nvim-typescript', { 'for': 'typescript', 'do': './install.sh'}
+" Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'pangloss/vim-javascript', {'for': ['typescript', 'javascript']}
+Plug 'jparise/vim-graphql'        " GraphQL syntax
+Plug 'ianks/vim-tsx', {'for': ['react']}
 
 """"""""""""""
 " todo lists "
@@ -89,17 +92,6 @@ Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'chr4/nginx.vim', {'for': 'nginx'}
 
 """"""""""""
-" Markdown "
-""""""""""""
-function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-    !cargo build --release
-  endif
-endfunction
-
-" Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown' }
-
-""""""""""""
 " Snippets "
 """"""""""""
 Plug 'SirVer/ultisnips' " engine
@@ -137,6 +129,15 @@ Plug 'cespare/vim-toml', { 'for' : 'toml' }
 
 call plug#end()
 
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
+" typescript
+let g:nvim_typescript#default_mappings = 0
+let g:nvim_typescript#type_info_on_hold = 1
+" g:nvim_typescript#server_path = 'yarn tsserver'
+let g:nvim_typescript#diagnostics_enable = 0
+
 " Neovim things
 let g:python3_host_prog = "/usr/bin/python3"
 
@@ -154,9 +155,34 @@ highlight Comment guifg=#5E5E5E
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 
 " airline
-let g:airline_symbols = {}
-let g:airline_theme='onedark'
+let g:airline#extensions#hunks#enabled = 0
 let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_theme='onedark'
+
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
 " General settings
 set shell=/usr/local/bin/zsh
@@ -204,11 +230,19 @@ set showbreak=">"
 " Remove trailing spaces on save (w)
 autocmd BufWritePre * :%s/\s\+$//e
 
+" spelling
+set spelllang=en_us
+hi SpellBad cterm=bold
+" set spell
+
 " File types and specific languages overrides
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType erlang setlocal shiftwidth=4 tabstop=4
+autocmd FileType typescript nnoremap gd :TSDef <CR>
+autocmd FileType typescript nnoremap gD :TSDefPreview <CR>
+autocmd FileType typescript nnoremap gf :TSType <CR>
 au BufRead,BufNewFile *.wiki setfiletype dokuwiki
 au BufRead,BufNewFile *.config.script setfiletype erlang
 au BufRead,BufNewFile *.config setfiletype erlang
@@ -223,10 +257,23 @@ au BufRead,BufNewFile *.lfe setfiletype lfe
 au BufRead,BufNewFile *.todo setfiletype todo
 au BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 au BufRead,BufNewFile *.bp setfiletype hcl
+au BufRead,BufNewFile *.tsx setfiletype react
 
 " ale linter
 let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint', 'tsserver'],
+\   'vue': ['eslint']
+\}
+
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint', 'tsserver'],
+\}
+
+let g:ale_fix_on_save = 0
 
 " Go
 let g:go_highlight_types = 1 " This is part of vim-go
@@ -240,13 +287,13 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_function_parameters = 1
 let g:go_auto_sameids = 1 " highlight the variable when cursor is on it
 let g:go_fmt_command = "goimports" " auto import packages
-let g:go_auto_type_info = 0 " don't show type info on status line
+let g:go_auto_type_info = 1 " show type info on status line
 let g:go_updatetime = 700
 let g:go_addtags_transform = "snakecase"
 let g:go_build_tags = 'release'
-let g:go_def_mode = 'godef'
+" let g:go_def_mode = 'godef'
 let g:go_disable_autoinstall=0
-" let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'goimports', 'errcheck']
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'goimports', 'errcheck']
 let g:go_metalinter_deadline = "2s"
 let g:go_metalinter_autosave = 1
 let g:go_list_type = "quickfix"
@@ -255,12 +302,18 @@ let g:go_list_height=6 " suggestions/error list should be lower
 let g:go_jump_to_error=0 " Don't jump to errors on save
 let g:go_echo_command_info=0 " Don't show errors, for example gometalinter FAIL errors
 
+" reveal.js
+let g:reveal_config = { 'filename': 'index', 'theme': 'solarized' }
+
 " Terraform
 " call terraform fmt on save
 let g:terraform_fmt_on_save = 1
 
 " maps
 map <C-n> :NERDTreeToggle<CR>
+
+" NERDTree
+let NERDTreeShowHidden=1
 
 " git gutter
 let g:gitgutter_signs = 1
@@ -277,6 +330,7 @@ nnoremap <c-p> :FZF<cr>
 
 " snippets
 let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 
 " Rust
 let g:racer_cmd = "/home/amit/.cargo/bin/racer"
@@ -296,8 +350,3 @@ com! FormatJSON %!python -m json.tool
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)

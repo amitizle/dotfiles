@@ -28,7 +28,6 @@ alias vim='nvim -p'
 alias vi='nvim -p'
 alias nvim='nvim -p'
 alias diff='colordiff'
-alias screen='TERM=xterm-256color tmux'
 alias bc='bc -l'
 alias c='xargs echo -n | pbcopy'
 alias xclip='xclip -selection clipboard'
@@ -36,17 +35,28 @@ alias l='ls -lthFAr'
 alias mkdir='mkdir -pv'
 alias ll='ls -alF'
 alias la='ls -A'
-alias grep='grep --color'
+alias ls='gls --group-directories-first --color=auto'
 alias info='info --vi-keys'
 alias emacs='/usr/local/bin/emacs --no-window-system'
 alias sl='ls'
 alias jcurl='curl -H "Accept: application/json" -H "Content-Type: application/json"'
 alias bw_search='bw --session $(pass Bitwarden/session) list items --pretty --search'
-# alias gpg='gpg2'
 alias pw='pwgen --numerals --capitalize --secure --num-passwords 1 --symbols 16'
 alias diff-git-w='git diff --ignore-space-change'
 alias top-cpu='ps aux | sort -rk 3,3 | head -n 10'
 alias todo="todo.sh -d ${HOME}/.config/todo.txt/todo.cfg"
+alias sed=gsed
+alias grep='ggrep --color'
+alias ag="ag --path-to-ignore=${HOME}/.agignore"
+alias e='emacs'
+alias commit-message='curl -s http://whatthecommit.com/index.txt'
+alias yi='yarn install --network-concurrency=1 2> >(grep -v warning 1>&2)'
+alias yb='yarn build && osascript -e "display notification \"\" with title \"yarn build done\""'
+alias yt='yarn test'
+alias ns='netstat -finet -ptcp'
+alias mdToJira='pandoc -f markdown -t jira'
+alias restart-gpg-agent='gpgconf --kill gpg-agent'
+alias n-to-newline="awk '{gsub(/\\n/,\"\n\")}1'"
 
 ####################
 # Extra completion #
@@ -79,10 +89,16 @@ alias docker-stop-all='docker stop $(docker ps -q)'
 alias docker-ips='docker inspect -f "{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $(docker ps -aq)'
 alias docker-image-digest="docker inspect --format='{{index .RepoDigests 0}}'"
 
+######
+# ag #
+######
+age() {
+  vim +'/\v'"$1" +':silent tabdo :1 | normal! n' +':tabfirst' -p $(ag "$@" | cut -d: -f1 | sort -u)
+}
+
 ############
 # Minikube #
 ############
-
 function reset_minikube(){
   minikube config set cpus 4
   minikube config set memory 4096
@@ -125,7 +141,7 @@ function decode_base64(){
   echo "$1" | base64 --decode ;
 }
 
-function ff(){ find . -type f -iname '*'"$*"'*' -ls ; }
+function ff(){ find . -type f -iname '*'"$*"'*' -ls | grep -v node_modules }
 
 function create_file(){
   dd if=/dev/zero of="$1"  bs=1M  count="$2" ;
@@ -173,7 +189,8 @@ functions private_git(){
 function git_pr_merged(){
   local _curr_branch=$(git rev-parse --abbrev-ref HEAD)
   git checkout master
-  git pull
+  echo "Pulling upstream"
+  git pull upstream master
   echo "Deleting branch $_curr_branch"
   git branch -D $_curr_branch
 }
@@ -208,7 +225,7 @@ function pdfjoin(){
 
 function wttr()
 {
-  curl -H "Accept-Language: en" wttr.in/"${1:-Tel Aviv}"
+  curl -H "Accept-Language: en" v2.wttr.in/"${1:-Tel Aviv}"
 }
 
 function is_yaml(){
@@ -303,12 +320,21 @@ alias ber='bundle exec rake'
 # Start tmux #
 ##############
 [[ -z "$TMUX" ]] && tmux
-[[ $TMUX = "" ]] && export TERM="xterm-256color"
+[[ $TMUX = "" ]]
 
+#######
+# fzf #
+#######
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND="/usr/local/bin/rg --files"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 true
 
 # zprof
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /Users/amit/bin/terraform terraform

@@ -41,16 +41,12 @@ font:
   normal:
     family: Hack
     style: Regular
-    # family: Fira Code
-    # style: Regular
 
   bold:
     family: Hack
     style: Bold
 
   italic:
-    # family: Source Code Pro for Powerline
-    # style: Light Italic
     family: Hack
     style: Italic
 

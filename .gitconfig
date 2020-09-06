@@ -5,12 +5,9 @@
 
 [user]
 	email = amit.goldberg@gmail.com
-	name = Amit Goldberg
+	name = Amit
   username = amitizle
 	signingkey = 17FACF698E2BC940
-
-[includeIf "gitdir:~/dev/salto/"]
-  path = ~/dev/salto/.gitconfig
 
 [color]
     branch = auto
@@ -65,12 +62,15 @@
     sm = submodule update --init --recursive
     root-path = rev-parse --show-toplevel
     currbr = rev-parse --abbrev-ref HEAD
+    ignore = update-index --assume-unchanged
+    no-ignore = update-index --no-assume-unchanged
 
 [diff]
 	tool = vimdiff
 	renames = copies
 [difftool]
 	prompt = false
+	trustExitCode = true
 [mergetool "vimdiff"]
   path = /usr/local/bin/nvim
   cmd = nvim -d $LOCAL $REMOTE
@@ -87,3 +87,12 @@
 	branch = false
 [log]
   follow = true
+
+[includeIf "gitdir:/Users/amit/dev/salto/"]
+  path = /Users/amit/dev/salto/.salto_gitconfig
+[includeIf "gitdir:/tmp/"]
+  path = /Users/amit/.gitconfig_no_gpg
+[includeIf "gitdir:/var/folders/fx/"]
+  path = /Users/amit/.gitconfig_no_gpg
+[pull]
+	ff = only
