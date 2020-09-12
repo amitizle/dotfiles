@@ -10,15 +10,19 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired' " mostly for ]n and [n for next conflict in scm diff
 " Buffer explorer, 'be' (normal open) or 'bt' (toggle open / close)
 " or 'bs' (force horizontal split open) or 'bv' (force vertical split open)
 Plug 'jlanzarotta/bufexplorer'
-" DB client
-Plug 'tpope/vim-dadbod'
 Plug 'blindFS/vim-reveal'
 Plug 'jremmen/vim-ripgrep'
+Plug 'Yggdroot/indentLine'
+
+"""""""""""
+" Writing "
+"""""""""""
+Plug 'junegunn/goyo.vim'
 
 """"""""""""""""""""""""
 " linters & completion "
@@ -44,6 +48,7 @@ Plug 'mhartington/nvim-typescript', { 'for': 'typescript', 'do': './install.sh'}
 Plug 'pangloss/vim-javascript', {'for': ['typescript', 'javascript']}
 Plug 'jparise/vim-graphql'        " GraphQL syntax
 Plug 'ianks/vim-tsx', {'for': ['react']}
+Plug 'othree/yajs.vim', {'for': 'javascript'}
 
 """"""""""""""
 " todo lists "
@@ -56,7 +61,14 @@ Plug 'vitalk/vim-simple-todo', { 'for': 'todo' }
 Plug 'vim-airline/vim-airline' " airline
 Plug 'vim-airline/vim-airline-themes'
 Plug 'lifepillar/vim-solarized8'
+Plug 'ryanoasis/vim-devicons'
+Plug 'godlygeek/tabular'
+
+
+" Themes
 Plug 'joshdick/onedark.vim'
+Plug 'mhartington/oceanic-next'
+Plug 'arcticicestudio/nord-vim'
 
 """""""""""""
 " Terraform "
@@ -117,15 +129,15 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
-"""""""""
-" LaTex "
-"""""""""
-Plug 'lervag/vimtex', { 'for' : ['tex', 'sty'] }
-
 """"""""
 " TOML "
 """"""""
 Plug 'cespare/vim-toml', { 'for' : 'toml' }
+
+""""""""""""
+" Markdown "
+""""""""""""
+Plug 'plasticboy/vim-markdown'
 
 call plug#end()
 
@@ -148,7 +160,7 @@ set termguicolors
 set guicursor=
 set background=dark
 " colorscheme solarized8_flat
-colorscheme onedark
+colorscheme nord
 syntax enable
 highlight clear Comment
 highlight Comment guifg=#5E5E5E
@@ -156,11 +168,12 @@ set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 
 " airline
 let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_theme='onedark'
+let g:airline_theme='base16_nord'
 
 let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
