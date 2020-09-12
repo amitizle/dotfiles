@@ -1,4 +1,0 @@
-KERL_CONFIGURE_OPTIONS="--with-ssl=/usr/local/opt/openssl --disable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --without-odbc --enable-darwin-64bit"
-KERL_DEFAULT_INSTALL_DIR="$KERL_BASE_DIR/installs"
-KERL_DOWNLOAD_DIR="$HOME/.kerl/archives"
-KERL_BUILD_DIR="$HOME/.kerl/builds/"
