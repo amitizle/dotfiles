@@ -5,6 +5,7 @@
 .zsh_addons/cache/
 .zsh_addons/zsh-git-prompt/
 .zsh_sources/salto.sh
+.zsh_sources/tunnel.sh
 
 **/node_modules
 nodegit
